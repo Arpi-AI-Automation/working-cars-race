@@ -1,14 +1,13 @@
+import type { ComponentType, PropsWithChildren } from 'react'
+
 import { useStore } from './store'
 
-import type { ComponentType, PropsWithChildren } from 'react'
-import type { IState } from './store'
-
-type IStateKey = keyof IState
+type Flag = 'ready' | 'sound'
 
 export const useToggle =
-  <P extends {}>(ToggledComponent: ComponentType<P>, toggle: IStateKey | IStateKey[]) =>
+  <P extends {}>(ToggledComponent: ComponentType<P>, toggle: Flag | Flag[]) =>
   (props: PropsWithChildren<P>) => {
     const keys = Array.isArray(toggle) ? toggle : [toggle]
     const values = useStore((state) => keys.map((key) => state[key]))
-    return values.every((v) => !!v) ? <ToggledComponent {...props} /> : props.children ? <>{props.children}</> : null
+    return values.every((value) => !!value) ? <ToggledComponent {...props} /> : props.children ? <>{props.children}</> : null
   }
