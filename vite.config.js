@@ -1,7 +1,11 @@
 import { defineConfig } from 'vite'
-import reactRefresh from '@vitejs/plugin-react-refresh'
-import reactJsx from 'vite-react-jsx'
+import react from '@vitejs/plugin-react'
 
+// GitHub Pages project site: https://arpi-ai-automation.github.io/working-cars-race/
 export default defineConfig({
-  plugins: [reactJsx(), reactRefresh()],
+  base: '/working-cars-race/',
+  plugins: [react()],
+  build: {
+    outDir: 'dist',
+  },
 })

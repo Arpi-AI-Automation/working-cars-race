@@ -6,6 +6,7 @@ import { MeshDistortMaterial, PositionalAudio, useGLTF } from '@react-three/drei
 import type { GLTF } from 'three-stdlib'
 import type { Group, Mesh, MeshStandardMaterial } from 'three'
 
+import { asset } from '../../asset'
 import { useStore, levelLayer } from '../../store'
 import { useToggle } from '../../useToggle'
 
@@ -60,7 +61,7 @@ interface TrackGLTF extends GLTF {
 
 export function Track(): JSX.Element {
   const level = useStore((state) => state.level)
-  const { nodes: n, materials: m } = useGLTF('/models/track-draco.glb') as TrackGLTF
+  const { nodes: n, materials: m } = useGLTF(asset('models/track-draco.glb')) as TrackGLTF
   const config = { receiveShadow: true, castShadow: true, 'material-roughness': 1 }
   const birds = useRef<Group>(null!)
   const clouds = useRef<Group>(null!)
@@ -84,7 +85,7 @@ export function Track(): JSX.Element {
         <mesh geometry={n.terrain.geometry} material={n.terrain.material} {...config} />
         <mesh geometry={n.water.geometry}>
           <MeshDistortMaterial speed={4} map={m.ColorPaletteWater.map} roughness={0} side={DoubleSide} />
-          <ToggledPositionalAudio url="/sounds/water.mp3" loop autoplay distance={10} />
+          <ToggledPositionalAudio url={asset('sounds/water.mp3')} loop autoplay distance={10} />
         </mesh>
       </group>
       <group ref={birds}>
